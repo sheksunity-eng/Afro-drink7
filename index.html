@@ -1,111 +1,180 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AfroDrink - Nancy</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; background-color: #FFF8F0; color: #333; }
-        header { background-color: #D32F2F; color: #FFF; padding: 20px; text-align: center; }
-        header h1 { margin: 0; font-family: cursive; font-size: 2.5em; }
-        nav { text-align: center; margin: 15px 0; }
-        nav a { margin: 0 10px; color: #D32F2F; text-decoration: none; font-weight: bold; }
-        .container { width: 90%; max-width: 1000px; margin: auto; }
-        .products { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
-        .product { background-color: #FFF; border-radius: 10px; padding: 15px; text-align: center; width: 250px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .product img { width: 100%; border-radius: 10px; }
-        .product h3 { margin: 10px 0 5px 0; }
-        .product p { font-size: 0.9em; }
-        .product button { background-color: #25D366; border: none; padding: 10px 20px; margin-top: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; color: white; }
-        .product button:hover { background-color: #128C7E; }
-        footer { text-align: center; padding: 20px; margin-top: 40px; background-color: #D32F2F; color: white; }
-        .location { font-weight: bold; margin-top: 5px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AfroDrink - Nancy</title>
+
+<style>
+body { font-family: Arial, sans-serif; margin:0; background:#FFF8F0; color:#333; }
+header { background:#D32F2F; color:white; text-align:center; padding:20px; }
+header h1 { margin:0; font-family:cursive; font-size:2.5em; }
+nav { text-align:center; margin:15px 0; }
+nav a { margin:0 10px; color:#D32F2F; text-decoration:none; font-weight:bold; }
+.container { width:90%; max-width:1000px; margin:auto; }
+.products { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
+.product { background:white; border-radius:10px; padding:15px; text-align:center; width:250px; box-shadow:0 4px 6px rgba(0,0,0,0.1); }
+.product img { width:100%; border-radius:10px; height:200px; object-fit:cover; }
+.product h3 { margin:10px 0 5px 0; }
+.product p { font-size:0.9em; }
+button { margin:5px; padding:8px 12px; border:none; border-radius:5px; cursor:pointer; font-weight:bold; }
+.add { background:#2196F3; color:white; }
+.qty-btn { background:#ddd; }
+.remove { background:#f44336; color:white; }
+.whatsapp { background:#25D366; color:white; padding:10px 20px; font-weight:bold; margin-top:10px; }
+.cart { background:white; margin-top:30px; padding:20px; border-radius:10px; }
+#cart-list li { margin-bottom:8px; }
+footer { text-align:center; padding:20px; margin-top:40px; background-color:#D32F2F; color:white; }
+.location { font-weight:bold; margin-top:5px; }
+
+/* Section à propos */
+#about { margin-top:50px; background:#fff3e0; padding:20px; border-radius:10px; }
+#about h2 { text-align:center; margin-bottom:20px; }
+#about h3 { margin-top:15px; }
+</style>
 </head>
+
 <body>
 
 <header>
-    <h1>AfroDrink</h1>
-    <p>Les meilleures boissons africaines livrées chez vous à Nancy !</p>
+<h1>AfroDrink</h1>
+<p>Les meilleures boissons africaines livrées chez vous à Nancy !</p>
 </header>
 
 <nav>
     <a href="#products">Produits</a>
+    <a href="#about">À propos</a>
 </nav>
 
 <div class="container">
 
-    <section id="products">
-        <h2>Nos Boissons</h2>
-        <div class="products">
+<section id="products">
+<h2>Nos Boissons</h2>
+<div class="products">
 
-            <div class="product">
-                <img src="https://cdn.aistoucuisine.com/assets/5524ef09-bb82-4de2-908f-040f2b1614d0/jus-bissap.jpg?width=1280" alt="Bissap">
-                <h3>Bissap</h3>
-                <p>Jus d’hibiscus sucré, frais et naturel</p>
-                <select id="bissap-size">
-                    <option value="50cl">50 cl</option>
-                    <option value="1l">1 litre</option>
-                </select>
-                <p>Prix : 2,50€ / 5€</p>
-                <button onclick="orderWhatsApp('Bissap', document.getElementById('bissap-size').value)">Commander sur WhatsApp</button>
-            </div>
+<div class="product">
+<img src="https://cdn.aistoucuisine.com/assets/5524ef09-bb82-4de2-908f-040f2b1614d0/jus-bissap.webp" alt="Bissap">
+<h3>Bissap</h3>
+<p>Jus d’hibiscus sucré, frais et naturel</p>
+<select id="bissap">
+<option value="50cl" data-price="2.5">50cl - 2,50€</option>
+<option value="1L" data-price="5">1L - 5€</option>
+</select>
+<button class="add" onclick="addToCart('Bissap','bissap')">Ajouter</button>
+</div>
 
-            <div class="product">
-                <img src="https://images.ctfassets.net/0e6jqcgsrcye/7uZ7WCEkpSyqvRsHpCGZ1m/b9097ad5f7423767cd6e82d0e155bd71/lemongingershot_thumbnail.jpg" alt="Jus de Gingembre">
-                <h3>Jus de Gingembre</h3>
-                <p>Boisson épicée et rafraîchissante</p>
-                <select id="gingembre-size">
-                    <option value="50cl">50 cl</option>
-                    <option value="1l">1 litre</option>
-                </select>
-                <p>Prix : 2,50€ / 5€</p>
-                <button onclick="orderWhatsApp('Jus de Gingembre', document.getElementById('gingembre-size').value)">Commander sur WhatsApp</button>
-            </div>
+<div class="product">
+<img src="https://images.ctfassets.net/0e6jqcgsrcye/7uZ7WCEkpSyqvRsHpCGZ1m/b9097ad5f7423767cd6e82d0e155bd71/lemongingershot_thumbnail.jpg" alt="Jus de Gingembre">
+<h3>Jus de Gingembre</h3>
+<p>Boisson épicée et rafraîchissante</p>
+<select id="gingembre">
+<option value="50cl" data-price="2.5">50cl - 2,50€</option>
+<option value="1L" data-price="5">1L - 5€</option>
+</select>
+<button class="add" onclick="addToCart('Jus de Gingembre','gingembre')">Ajouter</button>
+</div>
 
-            <div class="product">
-                <img src="https://img.freepik.com/photos-gratuite/deux-bouteilles-plastique_1203-1890.jpg?semt=ais_hybrid&w=740&q=80" alt="Yaourt fait maison">
-                <h3>Yaourt fait maison</h3>
-                <p>Yaourt doux et crémeux</p>
-                <select id="yaourt-size">
-                    <option value="50cl">50 cl</option>
-                    <option value="1l">1 litre</option>
-                </select>
-                <p>Prix : 3,50€ / 6€</p>
-                <button onclick="orderWhatsApp('Yaourt fait maison', document.getElementById('yaourt-size').value)">Commander sur WhatsApp</button>
-            </div>
+<div class="product">
+<img src="https://img.freepik.com/photos-gratuite/deux-bouteilles-plastique_1203-1890.jpg?semt=ais_hybrid&w=740&q=80" alt="Yaourt fait maison">
+<h3>Yaourt fait maison</h3>
+<p>Yaourt doux et crémeux</p>
+<select id="yaourt">
+<option value="50cl" data-price="3.5">50cl - 3,50€</option>
+<option value="1L" data-price="6">1L - 6€</option>
+</select>
+<button class="add" onclick="addToCart('Yaourt fait maison','yaourt')">Ajouter</button>
+</div>
 
-        </div>
-    </section>
+</div>
+</section>
+
+<!-- Panier -->
+<div class="cart">
+<h2>🛒 Mon panier</h2>
+<ul id="cart-list"></ul>
+<p><strong>Total : <span id="total">0</span> €</strong></p>
+<button class="whatsapp" onclick="sendWhatsApp()">Commander sur WhatsApp</button>
+</div>
+
+<!-- Section À propos -->
+<section id="about">
+<h2>À propos de nos boissons</h2>
+
+<h3>Bissap</h3>
+<p>Origine : Afrique de l’Ouest. Jus d’hibiscus sucré, riche en vitamine C, apprécié pour sa couleur rouge vif et son goût frais.</p>
+
+<h3>Jus de Gingembre</h3>
+<p>Origine : Afrique de l’Ouest. Boisson épicée et rafraîchissante, idéale pour stimuler la digestion et l’énergie.</p>
+
+<h3>Yaourt fait maison</h3>
+<p>Fabriqué avec des ingrédients naturels. Doux, crémeux, parfait pour accompagner vos repas ou comme collation saine.</p>
+</section>
 
 </div>
 
 <footer>
-    Livraison uniquement à Nancy | Contactez-nous : +33 7 58 52 99 46
-    <div class="location">📍 Nancy, France</div>
+Livraison uniquement à Nancy | Contactez-nous : +33 7 58 52 99 46
+<div class="location">📍 Nancy, France</div>
 </footer>
 
 <script>
-    const phoneNumber = "+33612345678"; // Modifie ici ton vrai numéro WhatsApp
+const phoneNumber = "+33758529946";
+let cart = [];
 
-    function orderWhatsApp(product, size) {
-        const message = `Bonjour, je souhaite commander :\n- Produit : ${product}\n- Taille : ${size}\nMerci !`;
-        const url = `https://wa.me/${phoneNumber.replace(/\D/g,'')}?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
+function addToCart(name, selectId) {
+    const select = document.getElementById(selectId);
+    const size = select.value;
+    const price = parseFloat(select.selectedOptions[0].dataset.price);
+
+    const existing = cart.find(item => item.name === name && item.size === size);
+    if(existing){
+        existing.quantity++;
+    } else {
+        cart.push({name, size, price, quantity:1});
     }
+    displayCart();
+}
+
+function displayCart() {
+    const list = document.getElementById("cart-list");
+    const totalEl = document.getElementById("total");
+    list.innerHTML = "";
+    let total = 0;
+    cart.forEach((item,index) => {
+        total += item.price * item.quantity;
+        const li = document.createElement("li");
+        li.innerHTML = `${item.name} (${item.size}) - ${item.price}€ x ${item.quantity} 
+        <button class="qty-btn" onclick="changeQty(${index},-1)">-</button>
+        <button class="qty-btn" onclick="changeQty(${index},1)">+</button>
+        <button class="remove" onclick="removeItem(${index})">Supprimer</button>`;
+        list.appendChild(li);
+    });
+    totalEl.textContent = total.toFixed(2);
+}
+
+function changeQty(index, change) {
+    cart[index].quantity += change;
+    if(cart[index].quantity <=0) cart.splice(index,1);
+    displayCart();
+}
+
+function removeItem(index) {
+    cart.splice(index,1);
+    displayCart();
+}
+
+function sendWhatsApp() {
+    if(cart.length === 0){ alert("Panier vide !"); return; }
+    let message = "Bonjour, je souhaite commander :\n";
+    cart.forEach(item => {
+        message += `- ${item.name} (${item.size}) x${item.quantity} - ${item.price*item.quantity}€\n`;
+    });
+    const total = cart.reduce((sum,item)=>sum+item.price*item.quantity,0);
+    message += `Total : ${total.toFixed(2)}€`;
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url,'_blank');
+}
 </script>
-<section id="about" style="margin-top:50px; background:#fff3e0; padding:20px; border-radius:10px;">
-  <h2>À propos de nos boissons</h2>
-  
-  <h3>Bissap</h3>
-  <p>Origine : Afrique de l’Ouest. Jus d’hibiscus sucré, riche en vitamine C, apprécié pour sa couleur rouge vif et son goût frais.</p>
-
-  <h3>Jus de Gingembre</h3>
-  <p>Origine : Afrique de l’Ouest. Boisson épicée et rafraîchissante, idéale pour stimuler la digestion et l’énergie.</p>
-
-  <h3>Yaourt fait maison</h3>
-  <p>Fabriqué avec des ingrédients naturels. Doux, crémeux, parfait pour accompagner vos repas ou comme collation saine.</p>
-</section>
 
 </body>
 </html>
